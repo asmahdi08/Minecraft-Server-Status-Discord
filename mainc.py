@@ -7,7 +7,6 @@ import json
 from discord.ext import commands
 
 # Load environment variables
-dotenv.load_dotenv()
 TOKEN: str = os.getenv("DISCORD_TOKEN")
 
 # Server to query

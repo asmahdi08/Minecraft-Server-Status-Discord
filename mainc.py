@@ -7,6 +7,7 @@ import json
 from discord.ext import commands
 
 # Load environment variables
+dotenv.load_dotenv()
 TOKEN: str = os.getenv("DISCORD_TOKEN")
 
 # Server to query
@@ -59,7 +60,15 @@ async def mcserverstatus(interaction: discord.Interaction):
     await interaction.response.defer()  # Defer the response if it might take a second
     data = await make_rq()  
 
-    if data["online"]:
+    if data["version"]["name_clean"]=="\u25cf Offline":
+        embed = discord.Embed(
+            title="Forenno Minecraft Server Status",
+            description="❌ The server is **offline.**",
+            color=discord.Color.red()
+        )
+
+        
+    else:
         activePlayerCount = data["players"]["online"]
         player_list = data["players"].get("list", [])
         players = [player["name_clean"] for player in player_list]
@@ -72,12 +81,7 @@ async def mcserverstatus(interaction: discord.Interaction):
         )
         embed.add_field(name="Players Online", value=f"{activePlayerCount}/20", inline=False)
         embed.add_field(name="Player List", value=name_string, inline=False)
-    else:
-        embed = discord.Embed(
-            title="Forenno Minecraft Server Status",
-            description="❌ The server is **offline.**",
-            color=discord.Color.red()
-        )
+        
 
     await interaction.followup.send(embed=embed)
 

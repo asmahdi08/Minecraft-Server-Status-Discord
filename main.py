@@ -11,7 +11,7 @@ dotenv.load_dotenv()
 TOKEN: str = os.getenv("DISCORD_TOKEN")
 
 # Server to query
-SERVER_ADDRESS = "forennofficial.aternos.me"
+SERVER_ADDRESS = ""
 
 # Intents setup
 intents = discord.Intents.default()
@@ -62,7 +62,7 @@ async def mcserverstatus(interaction: discord.Interaction):
 
     if data["version"]["name_clean"]=="\u25cf Offline":
         embed = discord.Embed(
-            title="Forenno Minecraft Server Status",
+            title="Minecraft Server Status",
             description="❌ The server is **offline.**",
             color=discord.Color.red()
         )

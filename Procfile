@@ -1,1 +1,0 @@
-web: python mainc.py

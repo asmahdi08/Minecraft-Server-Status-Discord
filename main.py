@@ -19,6 +19,8 @@ intents.message_content = True
 intents.guilds = True
 intents.guild_messages = True
 
+GUILD_ID = os.getenv("GUILD_ID")
+
 # Create bot client
 client = commands.Bot(command_prefix="!", intents=intents)
 
@@ -26,7 +28,7 @@ client = commands.Bot(command_prefix="!", intents=intents)
 @client.event
 async def on_ready():
     try:
-        synced = await client.tree.sync(guild= discord.Object(id=1371854101608009748))
+        synced = await client.tree.sync(guild= discord.Object(id=GUILD_ID))
         print(f"✅ Synced {len(synced)} command(s)")
     except Exception as e:
         print(f"❌ Failed to sync commands: {e}")
@@ -55,7 +57,7 @@ async def make_rq():
             return await response.json()
 
 # Slash command
-@client.tree.command(name="mcserverstatus", description="Get Minecraft server status with player list",guild= discord.Object(id=1371854101608009748))
+@client.tree.command(name="mcserverstatus", description="Get Minecraft server status with player list",guild= discord.Object(id=GUILD_ID))
 async def mcserverstatus(interaction: discord.Interaction):
     await interaction.response.defer()  # Defer the response if it might take a second
     data = await make_rq()  
@@ -75,7 +77,7 @@ async def mcserverstatus(interaction: discord.Interaction):
         name_string = "\n".join(players) if players else "No players online."
 
         embed = discord.Embed(
-            title="Forenno Minecraft Server Status",
+            title="Minecraft Server Status",
             description="✅ The server is **online!**",
             color=discord.Color.green()
         )
@@ -96,3 +98,4 @@ async def on_message(message):
 
 # Run bot
 client.run(TOKEN)
+

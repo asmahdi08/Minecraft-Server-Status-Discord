@@ -34,7 +34,7 @@ A Discord bot that provides the online status and player list of a Minecraft Jav
 2. Install dependencies via pip:
 
    ```bash
-   pip install discord.py python-dotenv aiohttp```
+   pip install discord.py python-dotenv aiohttp
 3. Create a .env file in the project root with the following contents:
     ```
     DISCORD_TOKEN=your_discord_bot_token
